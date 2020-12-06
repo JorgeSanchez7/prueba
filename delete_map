@@ -1,0 +1,35 @@
+#!/usr/bin/env python3
+
+'''
+Script to run map server
+'''
+
+import os
+import sys
+import psutil
+
+
+# Define command to request new token
+_COMMAND_ = './ClientMapas.py "%(maps_proxy)s" %(token)s remove %(nombre_Mapa)s'
+
+# Get required arguments
+try:
+    proxy, token, nombre = sys.argv[1:]
+except ValueError:
+    print('Command arguments: {} <maps_proxy> <token> <nombreMapa>'.format(
+        os.path.basename(sys.argv[0]))
+    )
+    sys.exit(1)
+
+# Compose command
+final_command = _COMMAND_ % {
+    'maps_proxy': proxy,
+	'token': token,
+	'nombre_Mapa': nombre
+}
+#print(final_command)
+
+# Run command
+os.system(final_command)
+
+sys.exit(0)
